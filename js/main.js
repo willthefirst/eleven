@@ -124,17 +124,38 @@ var KNOB = {
 	updateAudio: function( index ) {
 		$('.stem-range').html(this.stemRanges[index]);
 
-		// Kill all tracks above location
-		for (var i = index; i < (this.numOfStems + 1); i++ ) {
-			console.log(index);
-			this.stemGain[index].gain.value = 0;
-			$('.gain-' + index).html(this.stemGain[index].gain.value);
-		}
-
 		// Wherever mouse is, figure out the percentage of the height and apply that to that stems gain.
 		var gain_percentage = (this.mouseY - (this.stemRanges[index] - 20)) / this.stemRangeLength;
 		this.stemGain[index].gain.value = gain_percentage;
 		$('.gain-' + index).html(this.stemGain[index].gain.value);
+
+		// Kill all tracks above location
+		for (var i = (index+1); i < (this.numOfStems + 1); i++ ) {
+			this.stemGain[i].gain.value = 0;
+			$('.gain-' + i).html(this.stemGain[i].gain.value);
+		}
+
+		// Bump all tracks above location
+		for (var i = 0; i <= (index); i++ ) {
+			this.stemGain[i].gain.value = 1;
+			$('.gain-' + i).html(this.stemGain[i].gain.value);
+		}
+
+		// if (index < 4) {
+		// 	this.stemGain[4].gain.value = 0;
+		// }
+		// if (index < 3) {
+		// 	this.stemGain[3].gain.value = 0;
+		// }		if (index < 2) {
+		// 	this.stemGain[2].gain.value = 0;
+		// }
+		// if (index < 1) {
+		// 	this.stemGain[1].gain.value = 0;
+		// }
+		// if (index < 0) {
+		// 	this.stemGain[0].gain.value = 0;
+		// }
+
 	}
 };
 
