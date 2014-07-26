@@ -220,14 +220,64 @@ textarea {
 }
 
 .wrapper {
-  background-color: #000;
-    position: absolute;
+  background-color: #e9e9e9;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
 }
 
+.holder {
+    background-color: #c2c2c2;
+    width: 800px;
+    padding: 40px;
+    margin-top: 100px;
+    margin: auto;
+}
+
+.volume-holder {
+    position: relative;
+    margin-bottom: 20px;
+
+}
+.volume {
+    background-image: url('../img/volume-bar.png');
+    height: 210px;
+    width: 800px;
+    z-index: 1;
+    top: 0;
+    position: absolute;
+}
+.rectangle {
+    background-color: #339999;
+    height: 210px;
+    width: 0;
+/*    position: absolute;
+    z-index: 0;*/
+}
+
+.knob-holder-holder {
+    position: relative;
+}
+
+.knob-holder {
+    background-image: url('../img/circle-graphs.png');
+    height: 271px;
+    position: absolute;
+    width: 800px;
+    top: 0;
+
+}
+
+.knob-bass {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    color: #fff;
+}
+
 .mouse-y,.stem-range {
   color: #fff;
 }
+

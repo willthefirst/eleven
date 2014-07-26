@@ -85,6 +85,7 @@ var KNOB = {
 
 	updateDOM: function(e) {
 		this.mouseY = Math.round(100 * (1 - (e.pageY / this.height)));
+		$('.rectangle').width((this.mouseY*800)/100);
 		$('.mouse-y').html(this.mouseY);
 	},
 
@@ -140,22 +141,6 @@ var KNOB = {
 			this.stemGain[i].gain.value = 1;
 			$('.gain-' + i).html(this.stemGain[i].gain.value);
 		}
-
-		// if (index < 4) {
-		// 	this.stemGain[4].gain.value = 0;
-		// }
-		// if (index < 3) {
-		// 	this.stemGain[3].gain.value = 0;
-		// }		if (index < 2) {
-		// 	this.stemGain[2].gain.value = 0;
-		// }
-		// if (index < 1) {
-		// 	this.stemGain[1].gain.value = 0;
-		// }
-		// if (index < 0) {
-		// 	this.stemGain[0].gain.value = 0;
-		// }
-
 	}
 };
 
