@@ -6,6 +6,7 @@ var KNOB = {
 	stemRanges: [],
 	stemRangeLength: 0,
 	stemAudio : [],
+	stemGain: [],
 	context: {},
 
 	init: function() {
@@ -37,10 +38,14 @@ var KNOB = {
 		function finishedLoading(bufferList) {
 			console.log('loaded baby');
 			var source;
+			var gainNode;
 			for (var i = 0; i < self.numOfStems; i++) {
 				source = context.createBufferSource();
 				source.buffer = bufferList[i];
-				source.connect(context.destination);
+				gainNode = context.createGain();
+				source.connect(gainNode);
+				gainNode.connect(context.destination);
+				self.stemGain.push(gainNode);
 				self.stemAudio.push(source);
 			}
 			for (var i = 0; i < self.stemAudio.length; i++) {
@@ -87,11 +92,13 @@ var KNOB = {
 		// Check what stem range the mouse is currently in
 		// zero case match
 		if (this.mouseY <= this.stemRanges[0]) {
+			console.log(0);
 			this.updateAudio(0);
 		}
 		// all other matches
 		else {
-			for (var i = 0; i < this.numOfStems; i++) {
+			for (var i = 1; i <= this.numOfStems; i++) {
+				console.log(i);
 				if (this.mouseY >= this.stemRanges[i] && this.mouseY <= this.stemRanges[i+1]) {
 					this.updateAudio(i);
 				}
@@ -102,9 +109,17 @@ var KNOB = {
 		}
 	},
 
-	updateAudio: function( current_range ) {
-		$('.stem-range').html(this.stemRanges[current_range]);
+	updateAudio: function( index ) {
+		$('.stem-range').html(this.stemRanges[index]);
 
+		// Kill all tracks above location
+		for (var i = index; i < this.stemGain.length; i++ ) {
+			this.stemGain[index].gain.value = 0;
+		}
+
+		// Wherever mouse is, figure out the percentage of the height and apply that to that stems gain.
+		var gain_percentage = (this.mouseY - this.stemRanges[index]) / this.stemRangeLength;
+		this.stemGain[index].gain.value = 1 - gain_percentage;
 	}
 
 };
