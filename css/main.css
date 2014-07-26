@@ -228,6 +228,6 @@ textarea {
   right: 0;
 }
 
-.mouse-y {
+.mouse-y,.stem-range {
   color: #fff;
 }

@@ -4,6 +4,7 @@ var KNOB = {
 	mouseY: 0,
 	numOfStems: 0,
 	stemRanges: [],
+	stemRangeLength: 0,
 
 	init: function() {
 		this.getWindowHeight();
@@ -17,8 +18,9 @@ var KNOB = {
 
 	countStems: function() {
 		this.numOfStems = $('.stems').children().length;
+		this.stemRangeLength = 100 / this.numOfStems;
 		for (var i = 0; i < this.numOfStems; i++) {
-			this.stemRanges.push(100/this.numOfStems * (i+1));
+			this.stemRanges.push(this.stemRangeLength * (i+1));
 		}
 	},
 
@@ -36,10 +38,24 @@ var KNOB = {
 	},
 
 	updateAudio: function(e) {
-		// Current mouse percentage tells us
-		// console.log(e);
-	}
+		// Check what stem range the mouse is currently in
 
+		// zero case match
+		if (this.mouseY <= this.stemRanges[0]) {
+			$('.stem-range').html(this.stemRanges[0]);
+		}
+		else {
+			for (var i = 0; i < this.numOfStems; i++) {
+				if (this.mouseY >= this.stemRanges[i] && this.mouseY <= this.stemRanges[i+1]) {
+					$('.stem-range').html(this.stemRanges[i]);
+				}
+				else {
+					i++;
+				}
+			}
+		}
+
+	}
 
 };
 
