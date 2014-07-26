@@ -92,36 +92,50 @@ var KNOB = {
 		// Check what stem range the mouse is currently in
 		// zero case match
 		if (this.mouseY <= this.stemRanges[0]) {
-			console.log(0);
 			this.updateAudio(0);
 		}
-		// all other matches
-		else {
-			for (var i = 1; i <= this.numOfStems; i++) {
-				console.log(i);
-				if (this.mouseY >= this.stemRanges[i] && this.mouseY <= this.stemRanges[i+1]) {
-					this.updateAudio(i);
-				}
-				else {
-					i++;
-				}
-			}
+		if (this.mouseY >= this.stemRanges[0] && this.mouseY <= this.stemRanges[1]) {
+			this.updateAudio(1);
 		}
+		if (this.mouseY >= this.stemRanges[1] && this.mouseY <= this.stemRanges[2]) {
+			this.updateAudio(2);
+		}
+		if (this.mouseY >= this.stemRanges[2] && this.mouseY <= this.stemRanges[3]) {
+			this.updateAudio(3);
+		}
+		if (this.mouseY >= this.stemRanges[3] && this.mouseY <= this.stemRanges[4]) {
+			this.updateAudio(4);
+		}
+
+		// all other matches
+		// else {
+		// 	for (var i = 1; i <= this.numOfStems; i++) {
+		// 		console.log(i);
+		// 		if (this.mouseY >= this.stemRanges[i] && this.mouseY <= this.stemRanges[i+1]) {
+		// 			this.updateAudio(i);
+		// 		}
+		// 		else {
+		// 			i++;
+		// 		}
+		// 	}
+		// }
 	},
 
 	updateAudio: function( index ) {
 		$('.stem-range').html(this.stemRanges[index]);
 
 		// Kill all tracks above location
-		for (var i = index; i < this.stemGain.length; i++ ) {
+		for (var i = index; i < (this.numOfStems + 1); i++ ) {
+			console.log(index);
 			this.stemGain[index].gain.value = 0;
+			$('.gain-' + index).html(this.stemGain[index].gain.value);
 		}
 
 		// Wherever mouse is, figure out the percentage of the height and apply that to that stems gain.
-		var gain_percentage = (this.mouseY - this.stemRanges[index]) / this.stemRangeLength;
-		this.stemGain[index].gain.value = 1 - gain_percentage;
+		var gain_percentage = (this.mouseY - (this.stemRanges[index] - 20)) / this.stemRangeLength;
+		this.stemGain[index].gain.value = gain_percentage;
+		$('.gain-' + index).html(this.stemGain[index].gain.value);
 	}
-
 };
 
 
