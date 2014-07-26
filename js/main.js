@@ -10,6 +10,7 @@ var KNOB = {
 		this.getWindowHeight();
 		this.countStems();
 		this.trackMouse();
+		this.playAllTracks();
 	},
 
 	getWindowHeight: function() {
@@ -28,8 +29,14 @@ var KNOB = {
 		var self = this;
 		$('.wrapper').on('mousemove', function(e) {
 			self.updateDOM(e);
-			self.updateAudio(e);
+			self.findCurrentRange(e);
 		});
+	},
+
+	playAllTracks: function() {
+		for (var i = 0; i < this.numOfStems; i++) {
+			$('.stems').children()[i].play();
+		}
 	},
 
 	updateDOM: function(e) {
@@ -37,23 +44,27 @@ var KNOB = {
 		$('.mouse-y').html(this.mouseY);
 	},
 
-	updateAudio: function(e) {
+	findCurrentRange: function(e) {
 		// Check what stem range the mouse is currently in
-
 		// zero case match
 		if (this.mouseY <= this.stemRanges[0]) {
-			$('.stem-range').html(this.stemRanges[0]);
+			this.updateAudio(0);
 		}
+		// all other matches
 		else {
 			for (var i = 0; i < this.numOfStems; i++) {
 				if (this.mouseY >= this.stemRanges[i] && this.mouseY <= this.stemRanges[i+1]) {
-					$('.stem-range').html(this.stemRanges[i]);
+					this.updateAudio(i);
 				}
 				else {
 					i++;
 				}
 			}
 		}
+	},
+
+	updateAudio: function( current_range ) {
+		$('.stem-range').html(this.stemRanges[current_range]);
 
 	}
 
