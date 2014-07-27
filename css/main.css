@@ -272,7 +272,40 @@ textarea {
 
 .knob-bass {
     position: absolute;
-    top: 0;
+    top: 200px;
+    left: 120px;
+    z-index: 1;
+    color: #fff;
+}
+
+.knob-synth {
+    position: absolute;
+    top: 200px;
+    left: 370px;
+    z-index: 1;
+    color: #fff;
+}
+
+.knob-drums {
+    position: absolute;
+    top: 160px;
+    left: 240px;
+    z-index: 1;
+    color: #fff;
+}
+
+.knob-lead-vocals {
+    position: absolute;
+    top: 160px;
+    left: 485px;
+    z-index: 1;
+    color: #fff;
+}
+
+.knob-backing-vocals {
+    position: absolute;
+    top: 200px;
+    left: 600px;
     z-index: 1;
     color: #fff;
 }

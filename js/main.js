@@ -128,18 +128,24 @@ var KNOB = {
 		// Wherever mouse is, figure out the percentage of the height and apply that to that stems gain.
 		var gain_percentage = (this.mouseY - (this.stemRanges[index] - 20)) / this.stemRangeLength;
 		this.stemGain[index].gain.value = gain_percentage;
-		$('.gain-' + index).html(this.stemGain[index].gain.value);
+		var a = this.stemGain[index].gain.value * 100;
+		a = Math.floor(a);
+		$('.gain-' + index).html(a);
 
 		// Kill all tracks above location
 		for (var i = (index+1); i < (this.numOfStems + 1); i++ ) {
 			this.stemGain[i].gain.value = 0;
-			$('.gain-' + i).html(this.stemGain[i].gain.value);
+			var b = this.stemGain[i].gain.value * 100;
+			b = Math.floor(b);
+			$('.gain-' + i).html(b);
 		}
 
 		// Bump all tracks above location
 		for (var i = 0; i <= (index); i++ ) {
 			this.stemGain[i].gain.value = 1;
-			$('.gain-' + i).html(this.stemGain[i].gain.value);
+			var c = this.stemGain[i].gain.value * 100;
+			c = Math.floor(c);
+			$('.gain-' + i).html(c);
 		}
 	}
 };
